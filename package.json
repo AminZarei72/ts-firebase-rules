@@ -28,15 +28,17 @@
         "firebase"
     ],
     "bin": {
-        "tsfr": "./dist/index.js"
+        "tsfr": "./dist/cli/index.js"
     },
     "engines": {
         "node": ">=12"
     },
     "scripts": {
         "watch": "npm run watch-ts",
+        "watch-ts": "tsc -w",
+        "build": "tsc -p tsconfig.json",
         "test": "jest",
-        "build": "tsc -p tsconfig.json"
+        "test:watch": "jest --watch"
     },
     "dependencies": {},
     "devDependencies": {
