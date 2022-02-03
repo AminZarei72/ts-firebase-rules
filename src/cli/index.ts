@@ -12,7 +12,12 @@ async function initCli() {
     const cli = sade(configs.appName_cli);
     const templates = { todoList: '  ' }
     const userCurrentPath = (await fs.realpath(process.cwd()))
-    addCreateToCli({ templates, userCurrentPath, pkg })
+    addCreateToCli({
+        cli,
+        templates: Object.keys(templates),
+        pkg,
+        userCurrentPath: userCurrentPath
+    })
     cli.parse(process.argv);
 }
 /* ==================================== */
