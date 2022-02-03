@@ -4,9 +4,41 @@ import chalk from 'chalk'
 import * as fs from 'fs-extra'
 import * as types from '../types'
 import path from 'path'
-import ora, { Ora } from 'ora'
-import { addProcess } from './helpersFns2'
+import ora from 'ora'
+import { addProcess, askUserForADir, chooseATemplate } from './helpersFns2'
 import * as configs from '../configs'
+/* =========================================== */
+
+/* =========================================== */
+export async function addCreateProcessFn(args: {
+    bootSpinner: ora.Ora,
+    userCurrentPath: string,
+    pkg: types.PackageJson,
+    templates: string[],
+    cli: sade.Sade,
+    mainDir: string,
+    cliArgs: { '_': string[], template: string },
+}) {
+
+    // const args.bootSpinner
+    // const args.mainDir
+    let res = await askUserForADir({
+        mainDir: args.mainDir,
+        userCurrentPath: args.userCurrentPath,
+        bootSpinner: args.bootSpinner,
+    })
+    // let userCurrentProjectPath=res.projectPath
+    const finalDir = res.mainDir
+    /* ----------------------------- */
+    /* opt.todo:default should be todoList */
+    let template = await chooseATemplate({
+        templateAsOption: args.cliArgs.template,
+        templates: args.templates,
+        bootSpinner: args.bootSpinner,
+    })
+    /* ----------------------------- */
+    console.log('creating ', { template, finalDir })
+}
 /* =========================================== */
 export function addCreateToCli(args: {
     userCurrentPath: string,
@@ -38,17 +70,16 @@ export function addCreateToCli(args: {
                 fakeDelay: configs.fakeDelay,
                 fn: (bootSpinner: ora.Ora) => addCreateProcessFn({
                     ...args,
+                    bootSpinner,
+                    mainDir,
+                    cliArgs,
                 })
             })
             /* ------------------------ */
             /* ------------------------ */
         })
 }
-/* =========================================== */
 
-function addCreateProcessFn(arg0: { userCurrentPath: string; pkg: types.PackageJson; templates: string[]; cli: sade.Sade }) {
-    console.log('creating')
-}
 
 /* =========================================== */
 

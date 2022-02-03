@@ -7,7 +7,10 @@ test('"create" works', async () => {
     const res = shell.exec('npx tsfr') 
     expect(res.stdout.includes(configs.appName)).toBeTruthy()
 
-    const res2 = shell.exec('npx tsfr create')
+    // const res2 = shell.exec('npx tsfr create')
+    const res2 = shell.exec('npx tsfr create --template todoList')
     expect(res2.stdout.includes('creating')).toBeTruthy()
 
 })
+
+

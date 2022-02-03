@@ -70,3 +70,68 @@ export function logError(err: any) {
   stderr()
 }
 /* ===================================================== */
+
+/* ============================ */
+export async function chooseATemplate(args: {
+  templates: string[],
+  templateAsOption: string,
+  bootSpinner?: ora.Ora,
+}): Promise<string> {
+
+  let template = ''
+  const prompt = new Select({
+    message: 'Choose a template',
+    choices: args.templates,
+  })
+
+  // console.log(opts.template)
+  if (args.templateAsOption && typeof args.templateAsOption == 'string') {
+    template = args.templateAsOption?.trim()
+    if (!args.templates.includes(template)) {
+      args.bootSpinner?.fail(`Invalid template ${chalk.bold.red(template)}`)
+      await args.bootSpinner?.stop()
+      template = await prompt.run()
+
+    }
+  } else {
+    await args.bootSpinner?.stop()
+    template = await prompt.run()
+  }
+  return template
+}
+/* ============================ */
+export async function askUserForADir(args: {
+  // projectPath: string,
+  bootSpinner?: ora.Ora,
+  mainDir: string,
+  userCurrentPath: string,
+}): Promise<{
+  userCurrentProjectPath: string
+  mainDir: string
+}> {
+
+  let userCurrentProjectPath = args.userCurrentPath + '/' + args.mainDir
+  const exists = await fs.pathExists(userCurrentProjectPath)
+  if (!exists) {
+    return {
+      userCurrentProjectPath: userCurrentProjectPath,
+      mainDir: args.mainDir
+    }
+  }
+
+  args.bootSpinner?.fail(`Failed to create ${chalk.bold.red(args.mainDir)}, A folder named ${chalk.bold.red(args.mainDir)} already exists!`)
+  const prompt = new Input({
+    message: `${chalk.bold('Choose a different name')}`,
+    initial: args.mainDir + '-1',
+    result: (v: string) => v.trim(),
+  })
+
+  const mainDir = await prompt.run()
+  // projectPath = args.currentPath + '/' + mainDir
+  args.bootSpinner?.start(`Creating ${chalk.bold.green(mainDir)}...`)
+  return await askUserForADir({
+    ...args,
+    mainDir: mainDir,
+  })
+
+}
