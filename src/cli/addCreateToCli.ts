@@ -37,7 +37,38 @@ export async function addCreateProcessFn(args: {
         bootSpinner: args.bootSpinner,
     })
     /* ----------------------------- */
-    console.log('creating ', { template, finalDir })
+    console.log('creating...')
+    /* ------------------------------ */
+    /* create tsfr_config */
+    // const tsfr_config = require(configs.tsfr_config_src_path)
+    const tsfr_config = {
+        nativeFilesPath: `${finalDir}/native/functions`,
+        outputFilePath: `${finalDir}/build/firestore.rules`,
+        targetDotRulesPath: `${finalDir}/native/firestore.rules`,
+        userMainIndexTs: `${finalDir}/index.ts`,
+        // includedTypesPath : `${mainDir}/**/*.d.ts`/* todo:we might be able to rm this */
+        mainDir: `${finalDir}`,
+    }
+
+    // await fs.writeFile(`../../templates/${template}/tsfr.config.json`, JSON.stringify(tsfr_config))
+    /* ------------------------------ */
+    /* copy the template */
+
+    args.bootSpinner.start()
+    args.bootSpinner.info('copying files...')
+
+    await fs.copy(
+        path.resolve(__dirname, `../../templates/${template}`),
+        res.userCurrentProjectPath,
+    )
+    // fs.writeJSONSync(sad,asd,{mode:})
+    /* aksjdnjw */
+    await fs.writeJson(
+        `${args.userCurrentPath}/${configs.tsfr_config_fileName}`,
+        tsfr_config,
+        // { mode: 2 }
+    )
+    /* ------------------------------ */
 }
 /* =========================================== */
 export function addCreateToCli(args: {
