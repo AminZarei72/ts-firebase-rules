@@ -12,7 +12,19 @@ module.exports = {
         "^.+\\.(ts|tsx)$": "ts-jest"
     },
     testMatch: [
-        "**/__tests__/e2e/**/*.(ts|js)"
+        "<rootDir>/__tests__/e2e/**/*.(ts|js)",
+        // "!<rootDir>/tmp/**/*",
     ],
-    testEnvironment: "node"
+    testEnvironment: "node",
+    testPathIgnorePatterns: [
+        "<rootDir>/tmp",
+        // "<rootDir>/tmp/**/*",
+        // "!**/tmp/**/*.*",
+        // "**/__tests__/tmp/**/*.(ts|js)",
+    ],
+    modulePathIgnorePatterns: [
+        "<rootDir>/tmp",
+        // "!**/tmp/**/*.*",
+        // "**/__tests__/tmp/**/*.(ts|js)",
+    ]
 };

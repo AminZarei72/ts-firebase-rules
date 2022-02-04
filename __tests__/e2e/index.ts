@@ -11,7 +11,7 @@ test('"create" works', async () => {
     // const res2 = shell.exec('npx tsfr create --template todoList')
     // expect(res2.stdout.includes('creating')).toBeTruthy()
 
-    const currentDir = `./__tests__/tmp/e2e1Files`
+    const currentDir = `./tmp/e2e1Files`
     const userChoosedDir = `tsfrPrj`
     /* ----------- */
     shell.rm('-rf', currentDir)
@@ -19,6 +19,7 @@ test('"create" works', async () => {
     fs.ensureDirSync(currentDir)
 
     await testCreate({ currentDir: `${currentDir}/prj1`, userChoosedDir })
+
 
 
 })
