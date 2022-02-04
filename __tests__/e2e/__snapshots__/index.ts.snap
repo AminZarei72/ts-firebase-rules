@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`"create" works: filesList 1`] = `
+Array [
+  Dirent {
+    "name": "build",
+    Symbol(type): 2,
+  },
+  Dirent {
+    "name": "functions",
+    Symbol(type): 2,
+  },
+  Dirent {
+    "name": "index.ts",
+    Symbol(type): 1,
+  },
+  Dirent {
+    "name": "native",
+    Symbol(type): 2,
+  },
+  Dirent {
+    "name": "tsconfig.json",
+    Symbol(type): 1,
+  },
+]
+`;
