@@ -8,8 +8,6 @@ import ora from 'ora'
 import { addProcess, askUserForADir, chooseATemplate } from './helpersFns2'
 import * as configs from '../configs'
 /* =========================================== */
-
-/* =========================================== */
 export async function addCreateProcessFn(args: {
     bootSpinner: ora.Ora,
     userCurrentPath: string,
@@ -49,14 +47,11 @@ export async function addCreateProcessFn(args: {
         // includedTypesPath : `${mainDir}/**/*.d.ts`/* todo:we might be able to rm this */
         mainDir: `${finalDir}`,
     }
-
     // await fs.writeFile(`../../templates/${template}/tsfr.config.json`, JSON.stringify(tsfr_config))
     /* ------------------------------ */
     /* copy the template */
-
     args.bootSpinner.start()
     args.bootSpinner.info('copying files...')
-
     await fs.copy(
         path.resolve(__dirname, `../../templates/${template}`),
         res.userCurrentProjectPath,

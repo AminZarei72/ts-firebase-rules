@@ -24,3 +24,13 @@ Array [
   },
 ]
 `;
+
+exports[`"create" works: finalBuild 1`] = `
+Object {
+  "data": Array [
+    32,
+    10,
+  ],
+  "type": "Buffer",
+}
+`;

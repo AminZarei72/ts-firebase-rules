@@ -3,6 +3,7 @@ import sade from 'sade';
 import chalk from 'chalk';
 import * as fs from 'fs-extra';
 import { addCreateToCli } from './addCreateToCli';
+import { addBuildToCli } from './addBuildToCli';
 const pkg = require('../../package.json');
 import * as configs from '../configs'
 /* ==================================== */
@@ -13,6 +14,12 @@ async function initCli() {
     const templates = { todoList: '  ' }
     const userCurrentPath = (await fs.realpath(process.cwd()))
     addCreateToCli({
+        cli,
+        templates: Object.keys(templates),
+        pkg,
+        userCurrentPath: userCurrentPath
+    })
+    addBuildToCli({
         cli,
         templates: Object.keys(templates),
         pkg,

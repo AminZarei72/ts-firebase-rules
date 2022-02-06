@@ -20,6 +20,8 @@ test('"create" works', async () => {
 
     await testCreate({ currentDir: `${currentDir}/prj1`, userChoosedDir })
 
+    await testBuild({ currentDir: `${currentDir}/prj1`, userChoosedDir })
+
 
 
 })
@@ -37,6 +39,20 @@ async function testCreate(args: { currentDir: string, userChoosedDir: string }) 
     expect(fs.readdirSync(`${args.currentDir}/${args.userChoosedDir}/`, {
         withFileTypes: true
     })).toMatchSnapshot('filesList')
+
+}
+/* ======================================== */
+async function testBuild(args: { currentDir: string, userChoosedDir: string }) {
+    console.log('user is compiling its tsfr project...')
+    const { code } = shell.exec(`cd ${args.currentDir} && npx tsfr build`)
+    if (code != 0) throw 'failed'
+    const defaultBuildName = 'firestore.rules'/* todo:Get this from tsfr.config.json */
+    expect(fs.existsSync(`${args.currentDir}/${args.userChoosedDir}/build/${defaultBuildName}`)).toBeTruthy()
+    expect(fs.readFileSync(`${args.currentDir}/${args.userChoosedDir}/build/${defaultBuildName}`)).toMatchSnapshot('finalBuild')
+    /* these will be made from scratch */
+    // expect(fs.existsSync(`${args.currentDir}/tsfr.config.json`)).toBeTruthy()
+    // /* these will get coppied from template folder */
+    // expect(fs.existsSync(`${args.currentDir}/${args.userChoosedDir}/index.ts`)).toBeTruthy()
 
 }
 /* ======================================== */
