@@ -4,6 +4,10 @@
 
 /__tests__/tmp
 /otherRequiredFiles/typescript
+#because these might include sensetive data like user path...
+/otherRequiredFiles/compiledTs.js
+/otherRequiredFiles/tsconfig_forCompiling.json 
+
 
 #rm these
 /Android
