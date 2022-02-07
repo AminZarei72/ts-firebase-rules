@@ -18,12 +18,14 @@ module.exports = {
     testEnvironment: "node",
     testPathIgnorePatterns: [
         "<rootDir>/tmp",
+        "<rootDir>/otherRequiredFiles",
         // "<rootDir>/tmp/**/*",
         // "!**/tmp/**/*.*",
         // "**/__tests__/tmp/**/*.(ts|js)",
     ],
     modulePathIgnorePatterns: [
         "<rootDir>/tmp",
+        "<rootDir>/otherRequiredFiles",
         // "!**/tmp/**/*.*",
         // "**/__tests__/tmp/**/*.(ts|js)",
     ]

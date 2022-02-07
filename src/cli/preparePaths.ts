@@ -15,12 +15,17 @@ export async function preparePaths(args: {
     const additionalHelperTypesPath = path.resolve(__dirname, configs.additionalHelperTypesPath)
     const tsconfig_forCompilingPath = path.resolve(__dirname, configs.tsconfig_forCompilingPath) /* #todo:can we get this from a config file? */
     /* ------------------- */
+    const tscPath = path.resolve(__dirname, configs.tscPath)
+    const compiledTsPath = path.resolve(__dirname, configs.compiledTsPath)
+    /* ------------------- */
     return {
         userTypesPath,
         additionalHelperFnsPath,
         additionalHelperTypesPath,
         userMainIndexTsPath: userMainIndexTs,
         tsconfig_forCompilingPath,
+        compiledTsPath,
+        tscPath,
     }
 }
 /* ================= */

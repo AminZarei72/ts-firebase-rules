@@ -3,6 +3,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 /__tests__/tmp
+/otherRequiredFiles/typescript
 
 #rm these
 /Android

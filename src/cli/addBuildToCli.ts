@@ -37,6 +37,8 @@ export async function addBuildProcessFn(args: {
         userMainIndexTsPath,
         tsconfig_forCompilingPath,
         userTypesPath,
+        compiledTsPath,
+        tscPath,
     } = await preparePaths({
         userCurrentPath: args.userCurrentPath,
         tsfr_config,
@@ -51,11 +53,17 @@ export async function addBuildProcessFn(args: {
         userTypesPath,
     })
     /* --------------------------------------- */
+    /* #todo:compile ts here */
     /* write json and to use it later on shell */
-    // await fs.writeJson(tsconfig_forCompilingPath, tsconfig_forCompiling)
-    console.log(tsconfig_forCompiling)
+    await fs.writeJson(tsconfig_forCompilingPath, tsconfig_forCompiling)
     /* --------------------------------------- */
-    /* todo:compile ts here */
+    /* compile */
+    await fs.remove(compiledTsPath)
+    const asd = shell.exec(`${tscPath} -p ${tsconfig_forCompilingPath} --out ${compiledTsPath} `, {})
+    if (asd.code != 0 || !fs.existsSync(compiledTsPath)) {
+        throw 'could not find compiled file.\n this usually happens if typescript cant compile.'
+    }
+    /* Note:the only way to have "out" option is to put it below file (.outFile wont work!)*/
     /* ---------- */
     /* todo:compile based on compiled ts */
     console.log('compiling')

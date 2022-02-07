@@ -8,3 +8,5 @@ export const tsfr_config_fileName = `tsfr.config.json`
 export const additionalHelperFnsPath = `../../otherRequiredFiles/helpers/index.ts`
 export const tsconfig_forCompilingPath = `../../otherRequiredFiles/tsconfig_forCompiling.json`
 export const additionalHelperTypesPath = `../../otherRequiredFiles/tsfrTypes/index.ts`
+export const tscPath = `../../otherRequiredFiles/typescript/bin/tsc`
+export const compiledTsPath = `../../otherRequiredFiles/compiledTs.js`
