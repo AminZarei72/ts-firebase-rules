@@ -40,6 +40,7 @@ export async function build(args: {
     // finalRules = finalRules.replace(compiledTsReplacer, compiledTs)
     /* --------------- */
     fs.ensureFileSync(args.outputFilePath)
+    console.log(args.outputFilePath, finalRules)
     fs.writeFileSync(args.outputFilePath, finalRules)
     /* --------------- */
     /* target.split(search).join(replacement); */

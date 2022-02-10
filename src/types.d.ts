@@ -9,6 +9,9 @@ export type Tsfr_config = {
   tsfr_config_fileName: string,
   mainDir: string,
   userMainIndexTs: string,
-  /* todo:complete this */
+  /* [d]todo:complete this */
+  nativeFilesPath: string,
+  outputFilePath: string,
+  targetDotRulesPath: string,
 }
 /* ========================================== */

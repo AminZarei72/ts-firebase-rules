@@ -1,6 +1,7 @@
 import sade from 'sade'
 import chalk from 'chalk'
 import * as types from '../types'
+import * as compiler from '../compiler'
 import ora, { promise } from 'ora'
 import { addProcess, askUserForADir, chooseATemplate, delay, logError } from './helpersFns2'
 import shell from 'shelljs'
@@ -39,6 +40,10 @@ export async function addBuildProcessFn(args: {
         userTypesPath,
         compiledTsPath,
         tscPath,
+        targetDotRulesPath,
+        nativeFilesPath,
+        outputFilePath,
+        additionalNativeHelperFnsPath,
     } = await preparePaths({
         userCurrentPath: args.userCurrentPath,
         tsfr_config,
@@ -65,7 +70,15 @@ export async function addBuildProcessFn(args: {
     }
     /* Note:the only way to have "out" option is to put it below file (.outFile wont work!)*/
     /* ---------- */
-    /* todo:compile based on compiled ts */
+    /* [d]todo:compile based on compiled ts */
+    compiler.build({
+        compiledTsPath,
+        targetDotRulesPath,
+        nativeFilesPath,
+        nativeFunctionsTextToReplace: configs.nativeFunctionsTextToReplace,
+        outputFilePath,
+        additionalNativeHelperFnsPath,
+    })
     console.log('compiling')
     /* ---------- */
 }

@@ -10,3 +10,7 @@ export const tsconfig_forCompilingPath = `../../otherRequiredFiles/tsconfig_forC
 export const additionalHelperTypesPath = `../../otherRequiredFiles/tsfrTypes/index.ts`
 export const tscPath = `../../otherRequiredFiles/typescript/bin/tsc`
 export const compiledTsPath = `../../otherRequiredFiles/compiledTs.js`
+
+export const additionalNativeHelperFnsPath = `../../otherRequiredFiles/helpers/nativeFunctions.rules`
+
+export const nativeFunctionsTextToReplace = '//<<$nativeFirestoreFunctionsWillBeReplacedWithThis>>;'
