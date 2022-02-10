@@ -79,7 +79,9 @@ export async function addBuildProcessFn(args: {
         outputFilePath,
         additionalNativeHelperFnsPath,
     })
-    console.log('compiling')
+    /* ---------- */
+    /* todo:add failed build... logs here ,based on compiler.build(e.g build ${chalk.bold.green(targetPath)}) */
+    console.log('\n')
     /* ---------- */
 }
 /* =========================================== */
