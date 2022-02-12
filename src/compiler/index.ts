@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra';
 import { concatAllNativeFns } from './concatAllNativeFns';
+import { compileTheCompiledTs } from './compileTheCompiledTs';
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 // const sourceDir = '../'
 // const compiledTsFile = sourceDir + 'build/typedFns/groups/create_groups.js'
@@ -41,7 +42,7 @@ export async function build(args: {
     //=======================================================
     ${concatAllNativeFns(args.nativeFilesPath, args.additionalNativeHelperFnsPath)}
     //=======================================================
-    CompileTheCompiledTsHere
+    ${compileTheCompiledTs(compiledTs)}
     //=======================================================
     `/* todo:CompileTheCompiledTsHere */
 
@@ -50,7 +51,7 @@ export async function build(args: {
     // finalRules = finalRules.replace(compiledTsReplacer, compiledTs)
     /* --------------- */
     fs.ensureFileSync(args.outputFilePath)
-    console.log(args.outputFilePath, finalRules)
+    // console.log(args.outputFilePath, finalRules)
     fs.writeFileSync(args.outputFilePath, finalRules)
     /* --------------- */
     /* target.split(search).join(replacement); */
