@@ -13,7 +13,8 @@ export function compileTheCompiledTs(compiledTs: string): string {
 
     files.map(file => {
         let new_fileContent = ''
-        new_fileContent = file.content
+        new_fileContent = rmImportedModules(file)
+        // new_fileContent = file.content
         newFiles.push(new_fileContent)
     })
     // console.log(files)
@@ -83,5 +84,28 @@ export function getFiles(compiledTs: string): ({ content: string, importedModule
 
 }
 /* ================================= */
+/* ================================= */
+export function rmImportedModules(file: { content: string, importedModules: string[], }): string {
+    let fileContent = file.content
+    file.importedModules.map(mdl => {
+        // const tmp = ' ' + mdl + '.'
+        const tmp = ' ' + mdl + '.'
+        const tmp2 = '(' + mdl + '.'
+        const tmp3 = '[' + mdl + '.'
+        const tmp4 = '!' + mdl + '.'
+        /* todo:use regex here */
+        // console.log(tmp)
+        // console.log(tmp.split(''))
+        // const files = fileContent.match(regexConcater([tmp], 'gm'))
+        // fileContent = fileContent.replace(regexConcater([tmp], 'gm'), ' ')
+        fileContent = fileContent.split(tmp).join(' ');
+        fileContent = fileContent.split(tmp2).join('(');
+        fileContent = fileContent.split(tmp3).join('[');
+        fileContent = fileContent.split(tmp4).join('!');
+        // fileContent = fileContent.replace(importedModule.trim() + '.', '')
+    })
+    // return file.content
+    return fileContent
+}
 /* ================================= */
 /* ================================= */
