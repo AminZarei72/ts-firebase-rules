@@ -14,6 +14,7 @@ export function compileTheCompiledTs(compiledTs: string): string {
     files.map(file => {
         let new_fileContent = ''
         new_fileContent = rmImportedModules(file)
+        new_fileContent = modify1(new_fileContent)
         // new_fileContent = file.content
         newFiles.push(new_fileContent)
     })
@@ -85,6 +86,7 @@ export function getFiles(compiledTs: string): ({ content: string, importedModule
 }
 /* ================================= */
 /* ================================= */
+/** Note:this is still unstable and might change  */
 export function rmImportedModules(file: { content: string, importedModules: string[], }): string {
     let fileContent = file.content
     file.importedModules.map(mdl => {
@@ -108,4 +110,20 @@ export function rmImportedModules(file: { content: string, importedModules: stri
     return fileContent
 }
 /* ================================= */
+/* ================================= */
+export function modify1(fileContent: string): string {
+    let new_fileContent = fileContent
+    /* --------------- */
+    // new_fileContent = new_fileContent.replace(/define\("(.*?)\)(\s)\{\n/gm, '');
+    // new_fileContent = new_fileContent.replace(/^\}\);\n/gm, '');
+    /* --------------- */
+    new_fileContent = new_fileContent.replace(/(\s)const(\s)/gm, ' let ');
+    new_fileContent = new_fileContent.replace(/(\s)var(\s)/gm, ' let ');
+    /* --------------- */
+    /* todo:do we really need these? */
+    new_fileContent = new_fileContent.replace(/(\s)===(\s)/gm, ' == ');
+    new_fileContent = new_fileContent.replace(/(\s)!==(\s)/gm, ' != ');
+    /* --------------- */
+    return new_fileContent
+}
 /* ================================= */
