@@ -15,6 +15,7 @@ export function compileTheCompiledTs(compiledTs: string): string {
         let new_fileContent = ''
         new_fileContent = rmImportedModules(file)
         new_fileContent = modify1(new_fileContent)
+        new_fileContent = rmUselessStrings(new_fileContent)
         // new_fileContent = file.content
         newFiles.push(new_fileContent)
     })
@@ -123,6 +124,18 @@ export function modify1(fileContent: string): string {
     /* todo:do we really need these? */
     new_fileContent = new_fileContent.replace(/(\s)===(\s)/gm, ' == ');
     new_fileContent = new_fileContent.replace(/(\s)!==(\s)/gm, ' != ');
+    /* --------------- */
+    return new_fileContent
+}
+/* ================================= */
+export function rmUselessStrings(fileContent: string): string {
+    let new_fileContent = fileContent
+    /* --------------- */
+    new_fileContent = new_fileContent.replace(/Object\.defineProperty(.*?);/gm, '\n');
+    new_fileContent = new_fileContent.replace(/"use strict";/gm, '\n');
+    new_fileContent = new_fileContent.replace(/__exportStar(.*?);/gm, '\n');
+    /* todo:this export could be buggy(conflict with other) ,check it carefully */
+    new_fileContent = new_fileContent.replace(/exports\.(.*);/gm, '\n');
     /* --------------- */
     return new_fileContent
 }
