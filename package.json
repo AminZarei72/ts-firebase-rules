@@ -14,7 +14,9 @@
     },
     "files": [
         "dist",
-        "index.ts"
+        "index.ts",
+        "templates",
+        "otherRequiredFiles"
     ],
     "keywords": [
         "tsfr",

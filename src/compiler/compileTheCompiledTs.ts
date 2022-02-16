@@ -17,6 +17,8 @@ export function compileTheCompiledTs(compiledTs: string): string {
         new_fileContent = modify1(new_fileContent)
         new_fileContent = rmUselessStrings(new_fileContent)
         // new_fileContent = file.content
+        new_fileContent = modify_ruleStructure(new_fileContent)
+
         newFiles.push(new_fileContent)
     })
     // console.log(files)
@@ -139,4 +141,98 @@ export function rmUselessStrings(fileContent: string): string {
     /* --------------- */
     return new_fileContent
 }
+/* ================================= */
+export function modify_ruleStructure(fileContent: string): string {
+    let new_fileContent = fileContent
+    // const ruleStructureString='_ruleStructure___'
+    // const ruleStructureString='_ruleStructure_'
+    // const ruleStructureString = 'setRuleStructure(() => ({'
+    if (!fileContent.includes('setRuleStructure')) return fileContent /* kjasdijn3 */
+    /* --------------- */
+    // /(exports\.ruleStructure \= \{)/,
+    const asd = regexConcater([
+        // 'let _ruleStructure_ = () => ({});',
+        // 'let ruleStructureString = () => ({',
+        'setRuleStructure(() => ({',
+        /(?<content>((.|\n)*))/,
+        '}));',
+        // /\}\);/,
+    ], '')
+    // console.log(fileContent)
+    const ruleStructure = fileContent.match(asd)
+    // console.log(ruleStructure)
+    if (!ruleStructure) { /* this is useless(kjasdijn3) */
+        return err('couldnt find ruleStructure');
+    }
+    // console.log({ n: ruleStructure[0] });
+    // if (!ruleStructure.groups['body']) return err('couldnt find "body"')
+    if (!ruleStructure.groups || !ruleStructure.groups['content']) {
+        console.warn('skiping ruleStructure since there was no "ruleStructure" fn');
+        return new_fileContent
+    };
+    /* ------------------------- */
+
+    // const tmp2 = [
+    //     // /(\s)'(?<cls>((.)+))':/,
+    //     // // /\s\((?<param>((.)*))\)/,//id
+    //     // // // /((.|\n)*)/,
+    //     // // /\s=>\s\(\{\n/,
+    //     // /(?<fns>((.|\n)*))/,//groups
+    //     // '})',
+    //     // /\}\)(\,?)\n/
+    //     /\}\)/
+    // ]
+    const clss = ruleStructure.groups['content'].split('})')
+    clss.splice(clss.length - 1, 1)
+    // console.log(1111, clss)
+    /* add a loop here */
+    // const fns = ruleStructure.groups['content'].split(',').filter(i => i != '')
+    // console.log(11111,fns)
+
+    // console.log(222222221, fns[0].match(regexConcater(tmp2, '')))
+    // .match()
+    /* ------------------------- */
+    /* todo:user_public_1. didnt get remove! */
+    /*  create: x.create_x(id) */
+    const tmp3 = [
+        /(\s*)'(?<cls>((.)+))':/,
+        /\s\((?<param>((.)*))\)/,//id
+        // /((.|\n)*)/,
+        /\s=>\s\(\{\n/,
+        /(?<fns>((.|\n)*))/,//groups
+        // '}),',
+    ]
+    let azxcas = ''
+    clss.map(currentCls => {
+        const foundCls = currentCls.match(regexConcater(tmp3))
+        if (!foundCls || !foundCls.groups) {
+            return err('couldnt find ruleStructure functions!');
+        }
+        if (!foundCls.groups['cls'])
+            return err('couldnt find "cls"');
+        // if (!asd.groups['param']) return err()
+        if (!foundCls.groups['fns'])
+            return err('couldnt find "fns"');
+
+        const targetPath = foundCls.groups['cls'];
+        const param = foundCls.groups['param'] ? `/{${foundCls.groups['param']}}` : ''; /* this is optional so specific chars appear when its there */
+        const fns = foundCls.groups['fns'].split('\n');/* todo:what if user dont use NewLine? */
+        // console.log({ fns })
+        /* const keyVal_fns = fns.map(i => i.split(': () => ')); */
+        const keyVal_fns = fns.map(i => i.split(': '));
+        keyVal_fns.splice(keyVal_fns.length - 1, 1);
+        const finalFns = keyVal_fns.map(i => '\n\t\t allow ' + i[0].trim() + ': if ' + i[1].trim().split(',').join('') + ';').join('');
+
+        // ${asd.groups['']}
+        azxcas += (`
+        match /${targetPath}${param} {
+            ${finalFns}
+        }\n
+        `)
+    })
+    new_fileContent = new_fileContent.replace(asd, azxcas)
+    /* --------------- */
+    return new_fileContent
+}
+/* ================================= */
 /* ================================= */

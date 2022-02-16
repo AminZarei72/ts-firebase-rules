@@ -23,8 +23,13 @@ define("tmp/e2e1Files/prj1/tsfrPrj/functions/todos/index", ["require", "exports"
     Object.defineProperty(exports, "__esModule", { value: true });
     __exportStar(create_todo_1, exports);
 });
-define("tmp/e2e1Files/prj1/tsfrPrj/index", ["require", "exports", "tmp/e2e1Files/prj1/tsfrPrj/functions/todos/index"], function (require, exports, todos_1) {
+define("tmp/e2e1Files/prj1/tsfrPrj/index", ["require", "exports", "ts-firebase-rules", "tmp/e2e1Files/prj1/tsfrPrj/functions/todos/index", "tmp/e2e1Files/prj1/tsfrPrj/functions/todos/index"], function (require, exports, ts_firebase_rules_1, todos_1, todos_2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    __exportStar(todos_1, exports);
+    __exportStar(todos_2, exports);
+    ts_firebase_rules_1.setRuleStructure(() => ({
+        'todos': (id) => ({
+            create: todos_1.create_todo(id),
+        }),
+    }));
 });
