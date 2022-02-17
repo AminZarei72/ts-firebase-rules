@@ -17,6 +17,7 @@ export function compileTheCompiledTs(compiledTs: string): string {
         new_fileContent = modify1(new_fileContent)
         new_fileContent = rmUselessStrings(new_fileContent)
         // new_fileContent = file.content
+        new_fileContent = rm_globalVariable_(new_fileContent)
         new_fileContent = modify_ruleStructure(new_fileContent)
 
         newFiles.push(new_fileContent)
@@ -235,4 +236,69 @@ export function modify_ruleStructure(fileContent: string): string {
     return new_fileContent
 }
 /* ================================= */
+/* ================================= */
+export function rm_globalVariable_(fileContent: string): string {
+    let new_fileContent = fileContent
+    /* todo.opt:test with double globalVariable_ */
+    /* todo use match technique here */
+    /* --------------- */
+    /* add these to testing(with below regex ,it must returns all variables) :
+     _globalVariables_.minimumCharsInTitle = 6;
+        _globalVariables_.maximumCharsInTitle = 20;
+        _globalVariables_.maximumChar_sInTsitle = 20;
+        _globalVariables_._maxim23asd23ra$umChar_$sInTsitle = 20;
+        _globalVariables_.$maximumChar_$sInTsi23tle = 20;
+        _globalVariables_.asdasd = _globalVariables_.minimumCharsInTitle +
+            _globalVariables_.minimumCharsInTitle;
+        _globalVariables_.asdasd = '_globalVariables_.minimumCharsInTitle' ^
+            '_globalVariables_.minimumCharsInTitle' ;
+        _globalVariables_.asdasds = _globalVariables_.minimumCharsInTitle - _globalVariables_.minimumCharsInTitle;
+
+        _globalVariables_1._globalVariables_.maximumCharsInTitle); 
+        */
+    /* convert global vars to global fn  minimumCharsInTitle = 6 ==> function minimumCharsInTitle(){return 6} */
+    // const aValidVariable = /(([A-Za-z\$_])([A-Za-z\$_0-9]+))/
+    const aValidVariable = /(?<fname>(([A-Za-z\$_])([A-Za-z\$_0-9]+)))/
+    // const aValidValue = /(?<value>(([A-Za-z\$_0-9\"\']+)))/
+    new_fileContent = new_fileContent.replace(regexConcater([
+        /(\s)_globalVariables_\./,
+        aValidVariable,
+        /(\s)=(\s)/,
+        /(?<val>((.|([\+\-\*%\^]\n))+));/, /* new line allowed when another operator comes before it */
+    ], 'gm'),
+        'function $<fname>(){ return $<val> ; }\n'
+    );
+    // (\s)_globalVariables_\.(?<fname>(([A-Za-z\$_])([A-Za-z\$_0-9]+)))(\s)=(\s)(?<val>((.|([\+\-\*%\^]\n))+));
+    /*
+    (\s)_globalVariables_\.(?<fname>(([A-Za-z\$_])([A-Za-z\$_0-9]+)))(\s)=(\s)(?<val>((.|(\+\n))+));
+     */
+    /* (\s)_globalVariables_\.(?<fname>(([A-Za-z\$_])([A-Za-z\$_0-9]+)))(\s)=(\s)(?<val>((.|([\+\-\*%\^]\n))+));
+     */
+    /* --------------- */
+    /* --------------- */
+    /* convert _globalVariables_.x to x() */
+    /* todo:test this with /gm */
+    /* todo:rm s */
+    // new_fileContent = new_fileContent.replace(/(_globalVariables_\.)(?<fname>(.*?))(\s)/g, ' $<fname>\(\) ');
+    new_fileContent = new_fileContent.replace(regexConcater([
+        /(\s)(_globalVariables_\.)/,
+        aValidVariable,
+    ], 'gm'),
+        ' $<fname>\(\) '
+    );
+    /* --------------- */
+    // /* todo:in best senario  these must work in isolated env and without needing tothether */
+    // /* even if user dont export it this still convert it */
+    // /* todo:this must be scoped  */
+    // /* rm useless */
+    // /* note:dont add gm to this one (there must be just one) */
+    new_fileContent = new_fileContent.replace(/(\s)let(\s)_globalVariables_;/m, '\n');
+    new_fileContent = new_fileContent.replace(/(\s)\(function(\s)\(_globalVariables_\)(\s)\{\n/m, '\n');
+    new_fileContent = new_fileContent.replace(/\}\)\(_globalVariables_(?<fname>(.*?))\n/m, '\n');
+    // /* convert global vars to global fn */
+    // new_fileContent = new_fileContent.replace(/(\s)_globalVariables_\.(?<fname>(.*))(\s)=(\s)(?<val>(.*));\n/gm, 'function $<fname>(){ return $<val> ; }\n');
+    // new_fileContent = new_fileContent.replace(/(\s)(_globalVariables_\.)(?<fname>(.*?))(\s)/g, ' $<fname>\(\) ');
+
+    return new_fileContent
+}
 /* ================================= */
