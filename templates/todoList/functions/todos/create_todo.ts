@@ -7,16 +7,14 @@ import {
 
 import { _globalVariables_ } from "../_globalVariables_"
 
-/* if we rm FrBoolean here(and bool()) it always will be False! */
 export function create_todo(id: FrString): boolean {
 
     /* ---------------- */
     return (
         request.auth != null && // user has logged in
-
         //todo:check title by regex
 
-        true
+        false
     )
 
 } 
