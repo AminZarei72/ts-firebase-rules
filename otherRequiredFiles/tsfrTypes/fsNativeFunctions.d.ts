@@ -1,4 +1,6 @@
 /* ---------------------------------------- */
+export const docExists: <tables>(id: FrStringAsParam, table: tables) => boolean
+
 type fns =
     'create' |
     'update' |

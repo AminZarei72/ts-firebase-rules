@@ -1,1 +1,6 @@
 //nativeFunctions 
+function docExists(id, table) {
+    return (
+        exists(/databases/$(database)/documents/$(table)/$(id))
+    )
+}
