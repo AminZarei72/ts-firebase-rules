@@ -1,6 +1,6 @@
 // ==========================================================
 
-import { request } from "../tsfrTypes"
+import { request, FrMap } from "../tsfrTypes"
 
 /* todo:add some useful function here */
 export function example(params: string): boolean {
@@ -14,8 +14,15 @@ export function fieldsEqualTo(fieldsArr: string[]): boolean {
 }
 
 // ==========================================================
-export function getReq<T>(): any { /* todo:get T and return our types instead */
-    // type Model =  any;
-    const reqData: any = request.resource.data as any
+// export function getReq<T>(): any { /* todo:get T and return our types instead */
+//     // type Model =  any;
+//     const reqData: any = request.resource.data as any
+//     return reqData
+// }
+// ==========================================================
+export function getReq<T>(): FrMap<T> {
+    // type Model = FrMap<T>;
+    const reqData: FrMap<T> = request.resource.data as any
     return reqData
 }
+// ==========================================================

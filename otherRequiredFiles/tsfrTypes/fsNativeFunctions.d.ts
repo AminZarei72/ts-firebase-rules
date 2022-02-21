@@ -1,4 +1,20 @@
 /* ---------------------------------------- */
+export type FrMap<T> =
+    /*  T extends 'admin' ? T :  */ /* aaijsdnks */
+    T extends string ? FrString :
+    T extends Date ? any :
+    // T extends number | boolean ? T :
+    T extends number ? number :
+    T extends boolean ? boolean :
+    T extends AnyFn ? never :
+    T extends Array<infer V> ? Array<FrMap<V>> : /* todo:complete this */
+    // T extends Array<infer V> ? any : /* kasndaksjdn */
+    T extends object ? any : /* todo:complete this */
+    never;
+// export type FrMap<T> = any
+
+export type AnyFn = (...args: any[]) => any;
+/* ---------------------------------------- */
 export const docExists: <tables>(id: FrStringAsParam, table: tables) => boolean
 export const isString: (field: FrStringAsParam) => boolean /*  */
 
