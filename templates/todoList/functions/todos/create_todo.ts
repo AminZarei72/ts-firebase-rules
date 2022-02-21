@@ -2,10 +2,12 @@ import {
     FrString,
     request,
     docExists,
-    fieldsEqualTo
+    fieldsEqualTo,
+    getReq,
+    isString,
 }
-    from "ts-firebase-rules"
-// from '../../../../tmp/e2e1Files/prj1/node_modules/ts-firebase-rules'
+    // from "ts-firebase-rules"
+    from '../../../../tmp/e2e1Files/prj1/node_modules/ts-firebase-rules'
 import * as mt from '../../modelsTypes'
 
 import { _globalVariables_ } from "../_globalVariables_"
@@ -13,6 +15,8 @@ import { _globalVariables_ } from "../_globalVariables_"
 export function create_todo(id: FrString): boolean {
 
     /* ---------------- */
+    const reqData = getReq<mt.create_todo>()
+
     return (
         request.auth != null && // user has logged in
         //todo:check title by regex
@@ -24,6 +28,11 @@ export function create_todo(id: FrString): boolean {
             'comments',
             'createdBy',
         ]) &&
+
+        reqData.createdBy === request.auth.uid &&
+        reqData.status === 'waiting' &&
+        isString(reqData.comments) &&
+
         false
     )
 

@@ -4,3 +4,7 @@ function docExists(id, table) {
         exists(/databases/$(database)/documents/$(table)/$(id))
     )
 }
+//--------------------------
+function isString(field) { 
+    return field is string
+}

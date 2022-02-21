@@ -12,3 +12,10 @@ export function fieldsEqualTo(fieldsArr: string[]): boolean {
     )
 
 }
+
+// ==========================================================
+export function getReq<T>(): any { /* todo:get T and return our types instead */
+    // type Model =  any;
+    const reqData: any = request.resource.data as any
+    return reqData
+}

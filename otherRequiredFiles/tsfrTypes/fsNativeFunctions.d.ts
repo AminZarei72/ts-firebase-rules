@@ -1,5 +1,6 @@
 /* ---------------------------------------- */
 export const docExists: <tables>(id: FrStringAsParam, table: tables) => boolean
+export const isString: (field: FrStringAsParam) => boolean /*  */
 
 type fns =
     'create' |
