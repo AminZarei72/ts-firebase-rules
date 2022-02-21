@@ -6,8 +6,8 @@ import {
     getReq,
     isString,
 }
-    // from "ts-firebase-rules"
-    from '../../../../tmp/e2e1Files/prj1/node_modules/ts-firebase-rules'
+    from "ts-firebase-rules"
+    // from '../../../../tmp/e2e1Files/prj1/node_modules/ts-firebase-rules'
 import * as mt from '../../modelsTypes'
 
 import { _globalVariables_ } from "../_globalVariables_"
