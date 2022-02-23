@@ -2,18 +2,89 @@
 export type FrMap<T> =
     /*  T extends 'admin' ? T :  */ /* aaijsdnks */
     T extends string ? FrString :
-    T extends Date ? any :
+    T extends Date ? Timestamp :
     // T extends number | boolean ? T :
     T extends number ? number :
     T extends boolean ? boolean :
     T extends AnyFn ? never :
-    T extends Array<infer V> ? Array<FrMap<V>> : /* todo:complete this */
+    T extends Array<infer V> ? FrArray<FrMap<V>> : /* todo:complete this */
     // T extends Array<infer V> ? any : /* kasndaksjdn */
-    T extends object ? any : /* todo:complete this */
+    T extends object ? FrObject<T> : /* todo:complete this */
     never;
 // export type FrMap<T> = any
 
 export type AnyFn = (...args: any[]) => any;
+/* ---------------------------------------- */
+
+export interface Timestamp {
+    '': 'Timestamp';
+    date(): Timestamp;
+    hours(): number;
+    minutes(): number;
+    seconds(): number;
+    nanos(): number;
+    time(): Duration;
+    year(): number;
+    month(): number;
+    day(): number;
+    toMillis(): number;
+}
+export interface Duration {
+    '': 'Duration';
+    nanos(): number;
+    seconds(): number;
+}
+/* ======================================================= */
+export type PropertyNames<T> = T extends object
+    ? {
+        [K in keyof T]-?: T[K] extends AnyFn ? never : K;
+    }[keyof T]
+    : never;
+/* ======================================================= */
+// export  type FrObject<D> = { [x: string]: D }
+export type FrObject<T> = {
+    [K in keyof T]: FrMap<T[K]>;
+} & {
+    // _kind: 'Map';
+    keys: () => FrArray<FrMap<PropertyNames<T>>>;
+    size: () => number;
+    diff: (other: FrMap<T>) => MapDiff;
+    values: () => FrArray<any>;
+    get: <X, U>(otherwise: X, path: (start: T) => U) => U | X;
+}
+export interface MapDiff {
+    '': 'MapDiff';
+    addedKeys: () => FrSet<FrString>;
+    affectedKeys: () => FrSet<FrString>;
+    changedKeys: () => FrSet<FrString>;
+    removedKeys: () => FrSet<FrString>;
+    unchangedKeys: () => FrSet<FrString>;
+}
+export interface FrSet<T> {
+    '': 'Set';
+    size: () => number;
+    hasAny: (s: FrSet<T> | ListParameter<T>) => boolean;
+    hasOnly: (s: FrSet<T> | ListParameter<T>) => boolean;
+    hasAll: (s: FrSet<T> | ListParameter<T>) => boolean;
+    intersection: (s: FrSet<T>) => FrSet<T>;
+    difference: (s: FrSet<T>) => FrSet<T>;
+    union: (s: FrSet<T>) => FrSet<T>;
+}
+/* ======================================================= */
+
+export type ListParameter<T> = FrArray<T> | T[];
+
+export type FrArray<T> = {
+    // _kind: 'List';
+    hasAny: (i: ListParameter<T>) => boolean;
+    hasOnly: (i: ListParameter<T>) => boolean;
+    hasAll: (i: ListParameter<T>) => boolean;
+    concat: (i: ListParameter<T>) => FrArray<T>;
+    removeAll: (i: ListParameter<T>) => FrArray<T>;
+    join: (separator: FrStringAsParam) => FrString;
+    size: () => number;
+    toSet: () => FrSet<T>;
+} & { readonly [index: number]: T };
 /* ---------------------------------------- */
 export const docExists: <tables>(id: FrStringAsParam, table: tables) => boolean
 export const isString: (field: FrStringAsParam) => boolean /*  */

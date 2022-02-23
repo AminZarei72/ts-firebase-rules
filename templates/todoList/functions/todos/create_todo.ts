@@ -30,7 +30,7 @@ export function create_todo(id: FrString): boolean {
         ]) &&
 
         reqData.createdBy === request.auth.uid &&
-        reqData.status === 'waiting' &&
+        // reqData.status === 'waiting' && //todo:this is buggy
         isString(reqData.comments) &&
 
         false
