@@ -1,6 +1,6 @@
 // ==========================================================
 
-import { request, FrMap } from "../tsfrTypes"
+import { request, FrMap, FrString } from "../tsfrTypes"
 
 /* todo:add some useful function here */
 export function example(params: string): boolean {
@@ -24,5 +24,9 @@ export function getReq<T>(): FrMap<T> {
     // type Model = FrMap<T>;
     const reqData: FrMap<T> = request.resource.data as any
     return reqData
+}
+// ==========================================================
+export function str(textValue: string): FrString {
+    return textValue as unknown as FrString
 }
 // ==========================================================

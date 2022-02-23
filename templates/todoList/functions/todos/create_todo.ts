@@ -5,6 +5,7 @@ import {
     fieldsEqualTo,
     getReq,
     isString,
+    str,
 }
     from "ts-firebase-rules"
     // from '../../../../tmp/e2e1Files/prj1/node_modules/ts-firebase-rules'
@@ -30,7 +31,7 @@ export function create_todo(id: FrString): boolean {
         ]) &&
 
         reqData.createdBy === request.auth.uid &&
-        // reqData.status === 'waiting' && //todo:this is buggy
+        reqData.status === str('waiting') && //[d]todo:this is buggy
         isString(reqData.comments) &&
 
         false
