@@ -1,10 +1,43 @@
-//nativeFunctions 
+ 
 function docExists(id, table) {
     return (
         exists(/databases/$(database)/documents/$(table)/$(id))
     )
 }
-//--------------------------
-function isString(field) { 
+
+function docExistsAfter(id, table) {
+    return (
+        existsAfter(/databases/$(database)/documents/$(table)/$(id))
+    )
+}
+
+function getData_(tbl, id) {
+    return (
+        get(/databases/$(database)/documents/$(tbl)/$(id)).data
+    )
+} 
+
+function getDataAfter_(tbl, id) {
+    return (
+        getAfter(/databases/$(database)/documents/$(tbl)/$(id)).data
+    )
+} 
+
+function isInt(field) {
+    return field is int
+}
+
+function isString(field) {
     return field is string
+}
+
+function isBool(field) {
+    return field is bool
+} 
+ 
+ 
+ function uidRecordExistIn(table) {
+    return (
+        exists(/databases/$(database)/documents/$(table)/$(request.auth.uid))
+    )
 }

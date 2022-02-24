@@ -1,177 +1,69 @@
 /* ---------------------------------------- */
-export type FrMap<T> =
-    /*  T extends 'admin' ? T :  */ /* aaijsdnks */
-    T extends string ? FrString :
-    T extends Date ? Timestamp :
-    // T extends number | boolean ? T :
-    T extends number ? number :
-    T extends boolean ? boolean :
-    T extends AnyFn ? never :
-    T extends Array<infer V> ? FrArray<FrMap<V>> : /* todo:complete this */
-    // T extends Array<infer V> ? any : /* kasndaksjdn */
-    T extends object ? FrObject<T> : /* todo:complete this */
-    never;
-// export type FrMap<T> = any
-
-export type AnyFn = (...args: any[]) => any;
+// import { tables } from '../modelsTypes'
+import { FrStringAsParam, FrRequest, FrNumber, FrResource, RuleStructure, FrBoolean, FrNumberAsParam, FrBooleanAsParam } from './firescript_types'
+import { FrDuration, FrTimestamp, } from './fs1.d'
 /* ---------------------------------------- */
-
-export interface Timestamp {
-    '': 'Timestamp';
-    date(): Timestamp;
-    hours(): number;
-    minutes(): number;
-    seconds(): number;
-    nanos(): number;
-    time(): Duration;
-    year(): number;
-    month(): number;
-    day(): number;
-    toMillis(): number;
-}
-export interface Duration {
-    '': 'Duration';
-    nanos(): number;
-    seconds(): number;
-}
-/* ======================================================= */
-export type PropertyNames<T> = T extends object
-    ? {
-        [K in keyof T]-?: T[K] extends AnyFn ? never : K;
-    }[keyof T]
-    : never;
-/* ======================================================= */
-// export  type FrObject<D> = { [x: string]: D }
-export type FrObject<T> = {
-    [K in keyof T]: FrMap<T[K]>;
-} & {
-    // _kind: 'Map';
-    keys: () => FrArray<FrMap<PropertyNames<T>>>;
-    size: () => number;
-    diff: (other: FrMap<T>) => MapDiff;
-    values: () => FrArray<any>;
-    get: <X, U>(otherwise: X, path: (start: T) => U) => U | X;
-}
-export interface MapDiff {
-    '': 'MapDiff';
-    addedKeys: () => FrSet<FrString>;
-    affectedKeys: () => FrSet<FrString>;
-    changedKeys: () => FrSet<FrString>;
-    removedKeys: () => FrSet<FrString>;
-    unchangedKeys: () => FrSet<FrString>;
-}
-export interface FrSet<T> {
-    '': 'Set';
-    size: () => number;
-    hasAny: (s: FrSet<T> | ListParameter<T>) => boolean;
-    hasOnly: (s: FrSet<T> | ListParameter<T>) => boolean;
-    hasAll: (s: FrSet<T> | ListParameter<T>) => boolean;
-    intersection: (s: FrSet<T>) => FrSet<T>;
-    difference: (s: FrSet<T>) => FrSet<T>;
-    union: (s: FrSet<T>) => FrSet<T>;
-}
-/* ======================================================= */
-
-export type ListParameter<T> = FrArray<T> | T[];
-
-export type FrArray<T> = {
-    // _kind: 'List';
-    hasAny: (i: ListParameter<T>) => boolean;
-    hasOnly: (i: ListParameter<T>) => boolean;
-    hasAll: (i: ListParameter<T>) => boolean;
-    concat: (i: ListParameter<T>) => FrArray<T>;
-    removeAll: (i: ListParameter<T>) => FrArray<T>;
-    join: (separator: FrStringAsParam) => FrString;
-    size: () => number;
-    toSet: () => FrSet<T>;
-} & { readonly [index: number]: T };
-/* ---------------------------------------- */
-export const docExists: <tables>(id: FrStringAsParam, table: tables) => boolean
-export const isString: (field: FrStringAsParam) => boolean /*  */
-
-type fns =
-    'create' |
-    'update' |
-    'get' |
-    'delete' |
-    'list' |
-    'read' |
-    'write';
-type mainFns = { [targetPatsh in fns]: boolean; };
-export type RuleStructure = () => {
-    [
-    /** e.g: 'x/y' will compile to match /x/y/ */
-    targetPath: string
-    ]: (id: any) => Partial<mainFns>
-}
 export const setRuleStructure: (ruleStructure: RuleStructure) => void
 /* ---------------------------------------- */
 export const request: FrRequest
 export const resource: FrResource
-/* ======================================================= */
-export type data<D = { [x: string]: any }> = D
-export type FrResource = {
-    /* todo:sync these with exact functions from firebase  */
-    // data:{ [x: string]: any},
-    // data:any,
-    // data2:Record<string, any> &{
-    // data: any & {
-
-    // somehow get this frm user
-    data: data,
-    // data: {
-    //     size:()=>number,
-    //     // keys:()=>string[],
-    //     // keys:hasOnly,
-    //     keys:any,
-    //     diff:any,
-    //     // ...string,
-    // },
-}
 /* ---------------------------------------- */
+// export const isBool: (field: boolean) => boolean
+// export const isInt: (field: FrNumber) => boolean
+// export const isString: (field: FrStringAsParam) => boolean
+export const isBool: (field: FrBooleanAsParam) => FrBoolean
+export const isInt: (field: FrNumberAsParam) => FrBoolean
+export const isString: (field: FrStringAsParam) => FrBoolean
+/* ---------------------------------------- */
+/* akjsdkjqnw:  */
+export const docExists: <tables>(id: FrStringAsParam, table: tables) => FrBoolean
+export const docExistsAfter: <tables>(id: FrStringAsParam, table: tables) => FrBoolean
+export const getData_: <tables>(tbl: tables, id: FrStringAsParam) => any
+export const getDataAfter_: <tables>(tbl: tables, id: FrStringAsParam) => any
+
+// export const getAfter_users_public: (id: FrStringAsParam) => any
+// export  const getGroup: (id: fb_string) => any
+export const uidRecordExistIn: (id: FrStringAsParam) => FrBoolean
+// export const get_users_private: (id: FrStringAsParam) => any
+// export  const get_users_public: (id: fb_string) => any
+// export  const isBool: (field: any) => FrBoolean
+// export  const isInt: (field: any) => FrBoolean
+// export  const isString: (field: any) => FrBoolean
+export function debug(item: any): FrBoolean
+// export function debug<T>(value: T): T;
 /* ======================================================= */
-type allTypes_string = MethodNames<String>
-export type MethodNames<T> = T extends object
-    ? {
-        [K in keyof T]-?: T[K] extends () => any ? K : never;
-    }[keyof T]
-    : never;
-export type FrStringMethods = {
-    '': 'string'
-    // _kind: 'String';
-    matches: (pattern: FrStringAsParam) => boolean;
-    lower: () => FrString;
-    upper: () => FrString;
-    trim: () => FrString;
-    size: () => number;
-    replace: (regex: FrStringAsParam, sub: FrStringAsParam) => FrString;
-    split: (regex: FrStringAsParam) => Array<FrString>;
+
+export function int<T extends FrStringAsParam | FrNumberAsParam>(value: T): FrNumber;
+export function float<T extends FrStringAsParam | FrNumberAsParam>(value: T): FrNumber;
+
+// export function debug<T>(value: T): T;
+
+// export function get<DATA>(path: string): Resource<DATA> | undefined;
+// export function exists(path: string): boolean;
+
+export namespace math {
+    function abs(n: FrNumberAsParam): FrNumber;
+    function ceil(n: FrNumberAsParam): FrNumber;
+    function floor(n: FrNumberAsParam): FrNumber;
+    function round(n: FrNumberAsParam): FrNumber;
+    function sqrt(n: FrNumberAsParam): FrNumber;
+    function isInfinite(n: FrNumberAsParam): FrBoolean;
+    function isNaN(n: FrNumberAsParam): FrBoolean;
+    function pow(base: FrNumberAsParam, exponent: FrNumberAsParam): FrBoolean;
 }
 
-export type stringWithoutItsFns = Omit<Omit<string, allTypes_string>, 'length'>
-export type FrString = stringWithoutItsFns & FrStringMethods
-export type FrStringAsParam = FrString | string
-/* ---------------------------------------- */
-export type FrRequest = {
-    resource: FrResource,
-    path: FrString,
-    /** The time variable contains a timestamp representing the current server time a request is being evaluated at. You can use this to provide time-based access to files, such as: only allowing files to be uploaded until a certain date, or only allowing files to be read up to an hour after they were uploaded. */
-    time: any, /* todo:complete this (based on request.time)*/
-    auth: {
-        uid: FrString,
-        token: {
-            /** The email address associated with the account, if present.*/
-            email: FrString,
-            /** true if the user has verified they have access to the email address. Some providers automatically verify email addresses they own.*/
-            email_verified: FrString,
-            /** Firebase specific token properties.*/
-            firebase: FrString,
-            /** The user's display name, if set.*/
-            name: FrString,
-            /** The phone number associated with the account, if present.*/
-            phone_number: FrString,
-            /** The user's Firebase UID. This is unique within a project.*/
-            sub: FrString,
-        },
-    }
+export namespace timestamp {
+    function value(epochMillis: FrNumberAsParam): FrTimestamp;
+    function date(year: FrNumberAsParam, month: FrNumberAsParam, day: FrNumberAsParam): FrTimestamp;
 }
+
+export namespace duration {
+    function abs(d: FrDuration): FrDuration
+    function value(n: FrNumberAsParam, unit: 'w' | 'd' | 'h' | 'm' | 's' | 'ms' | 'ns'): FrDuration
+    function time(
+        hours: FrNumberAsParam,
+        mins: FrNumberAsParam,
+        secs: FrNumberAsParam,
+        nanos: FrNumberAsParam
+    ): FrDuration
+} 
