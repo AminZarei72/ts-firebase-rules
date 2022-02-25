@@ -1,9 +1,9 @@
 /* ----------------------------------------------- */
 import { setRuleStructure } from 'ts-firebase-rules'
-// import { setRuleStructure } from '../../tmp/e2e1Files/prj1/node_modules/ts-firebase-rules'
 import { create_todo, update_todo, read_todo } from './functions/todos'
 /* ----------------------------------------------- */
-/* export functions here_ */
+/* export functions here */
+export * from './functions/helpers'
 export * from './functions/todos'
 /* ----------------------------------------------- */
 setRuleStructure(() => ({

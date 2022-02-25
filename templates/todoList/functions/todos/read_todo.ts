@@ -1,6 +1,29 @@
-/* if we rm FrBoolean here(and bool()) it always will be False! */
+import { 
+    FrString,
+    docExists, request, isString, isInt,
+    getData, fieldsEqualTo, strBetween, getReq, str,
+    getCurrentValues, FrBoolean,
+} from "ts-firebase-rules"
+import { titleIsValid } from "../helpers"
 import { _globalVariables_ } from "../_globalVariables_"
-export function read_todo(id: any): boolean {
-    /* ---------------- */
-    return _globalVariables_.maximumCharsInTitle >= _globalVariables_.minimumCharsInTitle
+import * as mt from '../../modelsTypes'
+
+export function read_todo(id: FrString): FrBoolean {
+    const reqData = getReq<mt.create_todo>()
+    return (
+        request.auth != null && // user has logged in
+        docExists<mt.T>(request.auth.uid, 'users') && // user exist
+        !docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
+        fieldsEqualTo([
+            'status',
+            'title',
+            'comments',
+            'createdBy',
+        ]) &&
+        titleIsValid(reqData.title) && //check title by regex
+        reqData.createdBy === request.auth.uid && 
+        reqData.status === str('waiting') &&
+        isString(reqData.comments) 
+    )
+
 } 

@@ -1,0 +1,7 @@
+//native functions
+function docExists2(id, table) {
+    return ( 
+        exists(/databases/$(database)/documents/$(table)/$(id)) 
+    )
+}
+ 

@@ -1,5 +1,5 @@
 
-/** Note:keep this simple for now(just use numbers and string ) */
+/*  */
 export namespace _globalVariables_ {
     export const minimumCharsInTitle = 6
     export const maximumCharsInTitle = 20

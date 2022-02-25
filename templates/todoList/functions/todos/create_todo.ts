@@ -1,26 +1,17 @@
-import {
+import { 
     FrString,
-    request,
-    docExists,
-    fieldsEqualTo,
-    getReq,
-    isString,
-    str,
-}
-    from "ts-firebase-rules"
-    // from '../../../../tmp/e2e1Files/prj1/node_modules/ts-firebase-rules'
+    docExists, request, isString, isInt,
+    getData, fieldsEqualTo, strBetween, getReq, str, FrBoolean
+} from "ts-firebase-rules"
+import { titleIsValid } from "../helpers"
+import { _globalVariables_ } from "../_globalVariables_"
 import * as mt from '../../modelsTypes'
 
-import { _globalVariables_ } from "../_globalVariables_"
-
-export function create_todo(id: FrString): boolean {
-
+export function create_todo(id: FrString): FrBoolean {
     /* ---------------- */
     const reqData = getReq<mt.create_todo>()
-
     return (
         request.auth != null && // user has logged in
-        //todo:check title by regex
         docExists<mt.T>(request.auth.uid, 'users') && // user exist
         !docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
         fieldsEqualTo([
@@ -29,12 +20,11 @@ export function create_todo(id: FrString): boolean {
             'comments',
             'createdBy',
         ]) &&
+        titleIsValid(reqData.title) && //check title by regex
 
-        reqData.createdBy === request.auth.uid &&
-        reqData.status === str('waiting') && //[d]todo:this is buggy
-        isString(reqData.comments) &&
-
-        false
+        reqData.createdBy === request.auth.uid && 
+        reqData.status === str('waiting') &&
+        isString(reqData.comments)
     )
 
 } 

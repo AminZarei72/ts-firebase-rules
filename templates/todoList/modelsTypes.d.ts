@@ -1,9 +1,10 @@
 
 /* ---------------------------------- */
-export type tables = 'todos' | 'users'
-export type T = tables
 /* ---------------------------------- */
-export type allStatus_todo = 'waiting' | 'done' | 'delayed'
+export type tables = 'todos' | 'users' 
+export type T=tables
+/* ---------------------------------- */
+export type allStatus_todo = 'waiting' | 'done' | 'delayed' 
 /* ---------------------------------- */
 export type create_todo = {
     status: 'waiting',
@@ -33,4 +34,3 @@ export type update_todo_user = {
     createdBy: string,
 }
 /* ---------------------------------- */
-export type asd_ = ''
