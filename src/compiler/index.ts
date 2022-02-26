@@ -13,6 +13,34 @@ import { compileTheCompiledTs } from './compileTheCompiledTs';
 // const compiledTsReplacer = '//$compiledFunctionsWillBeReplacedWithThis'
 // const nativeFunctionsTextToReplace = '//$nativeFirestoreFunctionsWillBeReplacedWithThis'
 /* --------------- */
+/* --------------- */
+export function watch(args: {
+    compiledTsPath: string,
+    targetDotRulesPath: string,
+    nativeFilesPath: string,
+    nativeFunctionsTextToReplace: string,
+    outputFilePath: string,
+    additionalNativeHelperFnsPath: string,
+}) {
+    try {
+        /* todo:here we also have to watch native files(recursivly) and rebuild  */
+        fs.watchFile(args.compiledTsPath, (current, prev) => {
+            console.log(new Date(), 'changes detected, compiling...')
+            build({
+                compiledTsPath: args.compiledTsPath,
+                targetDotRulesPath: args.targetDotRulesPath,
+                nativeFilesPath: args.nativeFilesPath,
+                nativeFunctionsTextToReplace: args.nativeFunctionsTextToReplace,
+                outputFilePath: args.outputFilePath,
+                additionalNativeHelperFnsPath: args.additionalNativeHelperFnsPath,
+            })
+        })
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+/* --------------- */
 export async function build(args: {
     compiledTsPath: string,
     targetDotRulesPath: string,

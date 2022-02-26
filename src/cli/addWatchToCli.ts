@@ -11,6 +11,7 @@ import concurrently from 'concurrently';
 // import tsc from 'typescript/lib/typescript';
 import { preparePaths } from "./preparePaths";
 import { generate_tsconfig_forCompiling } from './generate_tsconfig_forCompiling';
+import * as compiler from '../compiler';
 /* =========================================== */
 export async function addWatchProcessFn(args: {
     bootSpinner: ora.Ora,
@@ -40,6 +41,10 @@ export async function addWatchProcessFn(args: {
         userMainIndexTsPath,
         tsconfig_forCompilingPath,
         userTypesPath,
+        outputFilePath,
+        additionalNativeHelperFnsPath,
+        targetDotRulesPath,
+        nativeFilesPath,
     } = await preparePaths({
         userCurrentPath: args.userCurrentPath,
         tsfr_config,
@@ -57,6 +62,15 @@ export async function addWatchProcessFn(args: {
     /* write json and to use it later on shell */
     await fs.writeJson(tsconfig_forCompilingPath, tsconfig_forCompiling)
     /* --------------------------------------- */
+    /* [d]todo:do the main watchAndCompiling here */
+    compiler.watch({
+        compiledTsPath,
+        nativeFunctionsTextToReplace: configs.nativeFunctionsTextToReplace,
+        outputFilePath,
+        additionalNativeHelperFnsPath,
+        targetDotRulesPath,
+        nativeFilesPath,
+    })
     /* --------------------------------------- */
     /* add tsc watcher */
     /* compile */
@@ -71,7 +85,6 @@ export async function addWatchProcessFn(args: {
     /* --------------------------------------- */
     /* Note:the only way to have "out" option is to put it in below file (.outFile wont work!)*/
     /* ---------- */
-    /* todo:do the main watchAndCompiling here */
     /* ---------- */
 }
 /* ======================================================= */
