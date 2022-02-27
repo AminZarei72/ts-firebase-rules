@@ -8,7 +8,7 @@ import * as types from '../types'
 export async function preparePaths(args: {
     userCurrentPath: string,
     tsfr_config: types.Tsfr_config,
-}) {
+}) { 
     const userMainIndexTs = path.resolve(args.userCurrentPath, `./${args.tsfr_config.userMainIndexTs}`) /* [d]todo:can we get this from a config file? */
     const userTypesPath = path.resolve(args.userCurrentPath, `./${args.tsfr_config.mainDir}/**/*.d.ts`) /* [d]todo:can we get this from a config file? */
     /* ------------------- */
