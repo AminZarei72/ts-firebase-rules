@@ -30,9 +30,9 @@ export async function generate_tsconfig_forCompiling(args: {
         },
         "files": [
             args.userMainIndexTs,
-            args.additionalHelperFnsPath,
         ],
         "include": [
+            args.additionalHelperFnsPath,
             args.userTypesPath,
             args.additionalHelperTypesPath,
         ]
