@@ -85,6 +85,7 @@ export async function addWatchProcessFn(args: {
     /* --------------------------------------- */
     /* Note:the only way to have "out" option is to put it in below file (.outFile wont work!)*/
     /* ---------- */
+    console.log('\n')
     /* ---------- */
 }
 /* ======================================================= */

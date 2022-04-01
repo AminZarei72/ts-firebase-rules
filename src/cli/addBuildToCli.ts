@@ -61,8 +61,8 @@ export async function addBuildProcessFn(args: {
     /* --------------------------------------- */
     /* #todo:compile ts here */
     /* write json and to use it later on shell */
-    console.warn(1111111, __dirname, 11111111)
-    console.warn(1111111, tsconfig_forCompilingPath, 11111111)
+    // console.warn(1111111, __dirname, 11111111)
+    // console.warn(1111111, tsconfig_forCompilingPath, 11111111)
     await fs.writeJson(tsconfig_forCompilingPath, tsconfig_forCompiling)
 
     /* --------------------------------------- */

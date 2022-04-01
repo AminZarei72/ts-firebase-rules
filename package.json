@@ -1,16 +1,16 @@
 {
     "name": "ts-firebase-rules",
     "description": "enjoy using TypeScript power while proggraming firebase *.rules files",
-    "author": "aminZarei",
+    "author": "aminZarei72",
     "version": "0.1.0",
     "license": "MIT",
-    "homepage": "https://github.com/aminZarei/ts-firebase-rules",
+    "homepage": "https://github.com/aminZarei72/ts-firebase-rules",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/aminZarei/ts-firebase-rules.git"
+        "url": "git+https://github.com/aminZarei72/ts-firebase-rules.git"
     },
     "bugs": {
-        "url": "https://github.com/aminZarei/ts-firebase-rules/issues"
+        "url": "https://github.com/aminZarei72/ts-firebase-rules/issues"
     },
     "files": [
         "dist",
