@@ -7,7 +7,7 @@ import ora from 'ora';
 import { addProcess, askUserForADir, chooseATemplate, delay, logError } from './helpersFns2';
 import shell from 'shelljs';
 import * as configs from '../configs';
-import concurrently from 'concurrently';
+// import concurrently from 'concurrently';
 // import tsc from 'typescript/lib/typescript';
 import { preparePaths } from "./preparePaths";
 import { generate_tsconfig_forCompiling } from './generate_tsconfig_forCompiling';
