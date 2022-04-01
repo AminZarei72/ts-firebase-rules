@@ -1,10 +1,8 @@
 
-
-
-![TSFR](https://user-images.githubusercontent.com/)
  
+✨✨TSFR✨✨
  
-TSFR is the lost peace of firebase ".rules" files .   
+TSFR is the lost piece of firebase ".rules" files .   
 with TSFR you can use power of typescript to overcome firebase rules-engine limitations and scale your app so much easier without worring about your app crashes just for simple typo errors and also better managing/debugging with spliting the .rules file into smaller files. 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
