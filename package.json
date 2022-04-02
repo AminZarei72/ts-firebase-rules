@@ -50,7 +50,7 @@
         "enquirer": "^2.3.4",
         "progress-estimator": "0.3.0",
         "ora": "5.4.1",
-        "shelljs": "0.8.3"
+        "shelljs": "0.8.5"
     },
     "devDependencies": {
         "@types/compression": "1.0.1",
