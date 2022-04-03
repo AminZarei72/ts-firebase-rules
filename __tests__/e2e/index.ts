@@ -64,10 +64,14 @@ async function installPackage(args: { currentDir: string, userChoosedDir: string
     const packageName = asd[asd.length - 2]
     // console.log(11111, )
     /* todo:make below npm Pack path based on current path */
-    /* todo:automaticly find the package name */
+    /* [d]todo:automaticly find the package name */
+    console.log({ packageName })
     const res2 = shell.exec(`cd ${args.currentDir} && npm init -y && npm i -D  ../../../` + packageName)
-    expect(res2.code).toBe(0)
+    // console.log(res2)
+    /*note:dont use  expect(res2.code).toBe(0) since it can change based on Net Connection */
     const oldPkj = fs.readJsonSync(`${args.currentDir}/package.json`)
+    expect(Object.keys(oldPkj.devDependencies).includes('ts-firebase-rules')).toBeTruthy()
+    /* Note:dont use npx here since it might get the package based on environment conditions  */
     fs.writeJsonSync(`${args.currentDir}/package.json`, {
         // "asd":"tsfr",
         ...oldPkj,
