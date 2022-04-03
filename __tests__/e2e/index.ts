@@ -17,11 +17,13 @@ test('"create" works', async () => {
     fs.ensureDirSync(`${currentDir_}/prj1`)
     /* ----------- */
     await installPackage({ currentDir: `${currentDir_}/prj1`, userChoosedDir })
-
     /* ----------- */
     await testCreate({ currentDir: `${currentDir_}/prj1`, userChoosedDir })
     await testBuild({ currentDir: `${currentDir_}/prj1`, userChoosedDir })
 
+    // const res = shell.rm('', packedPkjPath)
+    // console.log(res)
+    // fs.(packedPkjPath)
 })
 /* ======================================== */
 async function testCreate(args: { currentDir: string, userChoosedDir: string }) {
@@ -65,8 +67,9 @@ async function installPackage(args: { currentDir: string, userChoosedDir: string
     // console.log(11111, )
     /* todo:make below npm Pack path based on current path */
     /* [d]todo:automaticly find the package name */
-    console.log({ packageName })
-    const res2 = shell.exec(`cd ${args.currentDir} && npm init -y && npm i -D  ../../../` + packageName)
+    expect(fs.existsSync(`./${packageName}`)).toBeTruthy() /* this way we wont need to rm it later */
+    fs.moveSync(`./${packageName}`, `${args.currentDir}/` + packageName)
+    const res2 = shell.exec(`cd ${args.currentDir} && npm init -y && npm i -D ./${packageName}`)
     // console.log(res2)
     /*note:dont use  expect(res2.code).toBe(0) since it can change based on Net Connection */
     const oldPkj = fs.readJsonSync(`${args.currentDir}/package.json`)
@@ -81,6 +84,7 @@ async function installPackage(args: { currentDir: string, userChoosedDir: string
         }
     })
 
+    // return { packedPkjPath: `../../../` + packageName }
 
     // const res = shell.exec('cd ${args.currentDir} && npm run runTsfr')
     // console.log(res)
