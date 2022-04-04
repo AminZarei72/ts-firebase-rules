@@ -41,7 +41,7 @@ export async function addCreateProcessFn(args: {
     // const tsfr_config = require(configs.tsfr_config_src_path)
     const tsfr_config = {
         nativeFilesPath: `${finalDir}/native/functions`,
-        outputFilePath: `${finalDir}/build/firestore.rules`,
+        outputFilePath: `${finalDir}/build_/firestore.rules`,
         targetDotRulesPath: `${finalDir}/native/firestore.rules`,
         userMainIndexTs: `${finalDir}/index.ts`,
         // includedTypesPath : `${mainDir}/**/*.d.ts`/* todo:we might be able to rm this */

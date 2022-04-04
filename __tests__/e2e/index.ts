@@ -37,11 +37,23 @@ async function testCreate(args: { currentDir: string, userChoosedDir: string }) 
     /* these will get coppied from template folder */
     // expect(fs.existsSync(`${args.currentDir}/${args.userChoosedDir}/index.ts`)).toBeTruthy()
 
-    console.log({ checkThissssss: fs.readdirSync(`${args.currentDir}/${args.userChoosedDir}/`) })
-    // expect(fs.readdirSync(`${args.currentDir}/${args.userChoosedDir}/`, {
-    //     // withFileTypes: true
-    // })).toMatchSnapshot('filesList')
+    // console.log({ checkThissssss: fs.readdirSync(`${args.currentDir}/${args.userChoosedDir}/`) })
+    expect(fs.readdirSync(`${args.currentDir}/${args.userChoosedDir}/`, {
+        // withFileTypes: true
+    })).toMatchSnapshot('filesList')
 
+    // "build",
+    // +   "functions",
+    // +   "index.ts",
+    // +   "modelsTypes.d.ts",
+    // +   "native",
+    // +   "tsconfig.json",
+
+    // 'functions',
+    // 'index.ts',
+    // 'modelsTypes.d.ts',
+    // 'native',
+    // 'tsconfig.json'
 }
 /* ======================================== */
 async function testBuild(args: { currentDir: string, userChoosedDir: string }) {
@@ -49,9 +61,11 @@ async function testBuild(args: { currentDir: string, userChoosedDir: string }) {
     /* const { code } = shell.exec(`cd ${args.currentDir} && npx tsfr build`) */
     const res1 = shell.exec(`cd ${args.currentDir} && npm run tsfr:build`)
     expect(res1.code).toBe(0)
-    const defaultBuildName = 'firestore.rules'/* todo:Get this from tsfr.config.json */
-    expect(fs.existsSync(`${args.currentDir}/${args.userChoosedDir}/build/${defaultBuildName}`)).toBeTruthy()
-    expect(fs.readFileSync(`${args.currentDir}/${args.userChoosedDir}/build/${defaultBuildName}`)).toMatchSnapshot('finalBuild')
+    const outputFilePath = fs.readJsonSync(`${args.currentDir}/tsfr.config.json`).outputFilePath
+    // console.log({ outputFilePath })
+    // const defaultBuildName = 'build_/firestore.rules'/* [d]todo:Get this from tsfr.config.json */
+    expect(fs.existsSync(`${args.currentDir}/${outputFilePath}`)).toBeTruthy()
+    expect(fs.readFileSync(`${args.currentDir}/${outputFilePath}`)).toMatchSnapshot('finalBuild')
     /* these will be made from scratch */
     // expect(fs.existsSync(`${args.currentDir}/tsfr.config.json`)).toBeTruthy()
     // /* these will get coppied from template folder */
