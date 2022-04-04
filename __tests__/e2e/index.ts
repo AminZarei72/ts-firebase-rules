@@ -38,7 +38,7 @@ async function testCreate(args: { currentDir: string, userChoosedDir: string }) 
     // expect(fs.existsSync(`${args.currentDir}/${args.userChoosedDir}/index.ts`)).toBeTruthy()
 
     expect(fs.readdirSync(`${args.currentDir}/${args.userChoosedDir}/`, {
-        withFileTypes: true
+        // withFileTypes: true
     })).toMatchSnapshot('filesList')
 
 }
