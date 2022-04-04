@@ -40,7 +40,10 @@
         "watch-ts": "tsc -w",
         "build": "tsc -p tsconfig.json",
         "test": "jest",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "preversion": "npm test",
+        "version": "npm run build && git add .",
+        "postversion": "git push && git push --tags  "
     },
     "dependencies": {
         "chalk": "4.0.0",
