@@ -42,7 +42,7 @@
         "test": "jest",
         "test:watch": "jest --watch",
         "preversion": "npm test",
-        "version": "npm run build && git add .",
+        "version": "npm run build",
         "postversion": "git push && git push --tags  "
     },
     "dependencies": {
