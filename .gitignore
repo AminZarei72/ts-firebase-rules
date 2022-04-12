@@ -2,6 +2,7 @@
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+documents.personal.txt
 ts-firebase-rules-*.tgz
 
 /__tests__/tmp
@@ -9,6 +10,7 @@ ts-firebase-rules-*.tgz
 #because these might include sensetive data like user path...
 /otherRequiredFiles/compiledTs.js
 /otherRequiredFiles/tsconfig_forCompiling.json 
+
 
 
 #rm these

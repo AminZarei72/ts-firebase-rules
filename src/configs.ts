@@ -14,6 +14,7 @@ export const tsconfig_forCompilingPath = `../../otherRequiredFiles/tsconfig_forC
 export const additionalHelperTypesPath = `tsfrTypes/**/*.ts`
 // export const tscPath = `../../otherRequiredFiles/typescript/bin/tsc`
 export const tscPath = `../../../ts_for_tsfr/bin/tsc`
+export const tscPath2 = `../../node_modules/ts_for_tsfr/bin/tsc`
 export const compiledTsPath = `../../otherRequiredFiles/compiledTs.js`
 
 export const additionalNativeHelperFnsPath = `../../otherRequiredFiles/helpers/nativeFunctions.rules`
