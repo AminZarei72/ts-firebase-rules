@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra'
 import path from 'path'
 import * as configs from '../configs'
-import chalk from 'chalk';
+// import chalk from 'chalk';
 import * as types from '../types'
 // import { logError } from './helpersFns2';
 /* ================= */
