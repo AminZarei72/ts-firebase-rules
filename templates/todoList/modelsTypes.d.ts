@@ -20,15 +20,8 @@ export type read_todo = {
     createdBy: string,
 }
 /* ---------------------------------- */
-export type update_todo_creator = {
-    status: allStatus_todo,
-    title: string,
-    comments: string,
-    createdBy: string,
-}
-/* ---------------------------------- */
-export type update_todo_user = {
-    status: 'done',
+export type update_todo = {
+    status: 'done' | 'delayed',
     title: string,
     comments: string,
     createdBy: string,

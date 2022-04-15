@@ -33,7 +33,7 @@ with TSFR you can use power of typescript to overcome firebase rules-engine limi
 - _globalVariables_ 
     - e.g: can be used as Configs that are going to be used in many functions ...
 
-
+----------------
 ## Quick Start
 
 ```bash
@@ -43,11 +43,16 @@ npx tsfr create
 ```
 this will ask you to choose a template and that's it. Just `cd` to `tsfr` folder , run build or watch command and start editing `tsfr/index.ts`!
 
+
 ```bash
 cd tsfr
 npx tsfr watch
 #npx tsfr build
 ```
+note:in case you want to change output file or manipulate paths of source files from `your_project/tsfr.config.json`
+
+
+----------------
 
 ## basic-example
  lets create a simple todo list:
@@ -112,12 +117,20 @@ function titleIsValid(title) {
             title.size() <= maximumCharsInTitle() );
 } 
 ```
+
+<b>check [react-native-todoList-boilerplate](https://github.com/aminZarei72/react-native-todolist-boilerplate) for a complete example.</b>
+
+----------------
 ## Notes
 
 ⚠️ `*Note:this project is still in its first days ,personally i used this for some of my projects(on production) and so far there have been no problem but we use multiple compiler and transitions so unexpected bugs might happen ,so (for now) you should check the final file and do the testing*`
 
 Note: we still going to have Firebase rules language limitations like lack of Loops and etc
-so make sure you have read their documentions
+so make sure you have read their documentions.
+
+
+
+----------------
 
  ✨✨✨✨✨✨
 

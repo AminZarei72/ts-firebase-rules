@@ -4,26 +4,25 @@ import {
     getData, fieldsEqualTo, strBetween, getReq, str,
     getCurrentValues, FrBoolean,
 } from "ts-firebase-rules"
-import { titleIsValid } from "../helpers"
 import { _globalVariables_ } from "../_globalVariables_"
 import * as mt from '../../modelsTypes'
 
-export function read_todo(id: FrString): FrBoolean {
-    const reqData = getReq<mt.create_todo>()
-    return (
+export function list_todo(): FrBoolean {
+    const currentValues = getCurrentValues<mt.read_todo>()
+    return ( 
         request.auth != null && // user has logged in
         docExists<mt.T>(request.auth.uid, 'users') && // user exist
-        !docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
-        fieldsEqualTo([
-            'status',
-            'title',
-            'comments',
-            'createdBy',
-        ]) &&
-        titleIsValid(reqData.title) && //check title by regex
-        reqData.createdBy === request.auth.uid && 
-        reqData.status === str('waiting') &&
-        isString(reqData.comments) 
+        currentValues.createdBy === request.auth.uid
+    )
+
+}
+export function get_todo(id: FrString): FrBoolean {
+    const currentValues = getCurrentValues<mt.read_todo>()
+    return (
+        docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
+        docExists<mt.T>(request.auth.uid, 'users') && // user exist
+        request.auth != null && // user has logged in
+        currentValues.createdBy === request.auth.uid  
     )
 
 } 

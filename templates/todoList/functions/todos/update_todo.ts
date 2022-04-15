@@ -1,30 +1,29 @@
-import { 
+import {
     FrString,
     docExists, request, isString, isInt,
     getData, fieldsEqualTo, strBetween, getReq, str,
-    getCurrentValues, FrBoolean,
- } from "ts-firebase-rules"
-import { titleIsValid } from "../helpers"
+    getCurrentValues, FrBoolean, include
+} from "ts-firebase-rules"
 import { _globalVariables_ } from "../_globalVariables_"
 import * as mt from '../../modelsTypes'
 
 export function update_todo(id: FrString): FrBoolean {
-    // const currentValues = getCurrentValues<mt.read_todo>()
-    const reqData = getReq<mt.create_todo>()
+    const currentValues = getCurrentValues<mt.read_todo>()
+    const reqData = getReq<mt.update_todo>()
     return (
         request.auth != null && // user has logged in
         docExists<mt.T>(request.auth.uid, 'users') && // user exist
-        !docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
+        reqData.createdBy === request.auth.uid &&
+        docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
         fieldsEqualTo([
             'status',
-            'title',
-            'comments',
-            'createdBy',
         ]) &&
-        titleIsValid(reqData.title) && //check title by regex
-        reqData.createdBy === request.auth.uid && 
-        reqData.status === str('waiting') &&
-        isString(reqData.comments) 
+        //compare current status to next status(let the status change to "done" or "delayed" only if current "todo" status is on "waiting")
+        currentValues.status === str('waiting') &&
+        (
+            reqData.status === str('done') ||
+            reqData.status === str('delayed')
+        )   
     )
 
 } 

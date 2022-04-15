@@ -15,16 +15,15 @@ export function create_todo(id: FrString): FrBoolean {
         docExists<mt.T>(request.auth.uid, 'users') && // user exist
         !docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
         fieldsEqualTo([
-            'status',
             'title',
             'comments',
+            'status',
             'createdBy',
         ]) &&
         titleIsValid(reqData.title) && //check title by regex
-
-        reqData.createdBy === request.auth.uid && 
         reqData.status === str('waiting') &&
-        isString(reqData.comments)
+        isString(reqData.comments) &&
+        reqData.createdBy === request.auth.uid 
     )
 
 } 
