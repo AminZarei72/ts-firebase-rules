@@ -14,7 +14,7 @@ export function create_todo(id: FrString): FrBoolean {
         request.auth != null && // user has logged in
         docExists<mt.T>(request.auth.uid, 'users') && // user exist
         !docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
-        fieldsEqualTo([
+        fieldsEqualTo<mt.create_todo>([
             'title',
             'comments',
             'status',

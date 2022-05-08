@@ -2,7 +2,7 @@
     "name": "ts-firebase-rules",
     "description": "enjoy using TypeScript power while proggraming firebase *.rules files",
     "author": "aminZarei72",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "license": "MIT",
     "homepage": "https://github.com/aminZarei72/ts-firebase-rules",
     "repository": {

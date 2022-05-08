@@ -15,7 +15,7 @@ export function update_todo(id: FrString): FrBoolean {
         docExists<mt.T>(request.auth.uid, 'users') && // user exist
         reqData.createdBy === request.auth.uid &&
         docExists<mt.T>(id, 'todos') && // this todo hasnt been created already 
-        fieldsEqualTo([
+        fieldsEqualTo<mt.update_todo>([
             'status',
         ]) &&
         //compare current status to next status(let the status change to "done" or "delayed" only if current "todo" status is on "waiting")

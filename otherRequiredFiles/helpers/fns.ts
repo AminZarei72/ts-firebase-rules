@@ -129,7 +129,8 @@ export function strBetween(field: string, start: number, end: number): FrBoolean
     )
 }
 // -------------------------------------------------------
-export function allowToUpdate(allowToUpdatefieldsArr: string[]): FrBoolean {
+    // export function allowToUpdate(allowToUpdatefieldsArr: string[]): FrBoolean {
+export function allowToUpdate<t>(allowToUpdatefieldsArr: (keyof t)[]): FrBoolean {
     /* note:check the docs before using this */
     return (
         request.resource.data.diff(resource.data).affectedKeys()
@@ -137,13 +138,29 @@ export function allowToUpdate(allowToUpdatefieldsArr: string[]): FrBoolean {
     )
 }
 // -------------------------------------------------------
-export function fieldsEqualTo(fieldsArr: string[]): FrBoolean {
+export function fieldsEqualTo<t>(fieldsArr: (keyof t)[]): FrBoolean {
     // note:this only works for creating for updating use allowToUpdate
+    // map_value// list_value// set_value
+    const tmp_fieldsArr: FrArray<(keyof t)> = fieldsArr as any
+    let data = request.resource.data.keys() as FrArray<any>
+    let a1 = tmp_fieldsArr.removeAll(data)
+    let a2 = data.removeAll(tmp_fieldsArr)
+    let res = a1.size() == a2.size()
     return (
-        request.resource.data.keys().toSet() === (fieldsArr as any).toSet()
+        res
     )
-
+    
 }
+// -------------------------------------------------------
+// export function fieldsEqualTo(fieldsArr: string[]): FrBoolean {
+//     // note:this only works for creating for updating use allowToUpdate
+//     return (
+//         // request.resource.data.keys().toSet() === (fieldsArr as any).toSet()
+        
+//     )
+
+// }
+
 // -------------------------------------------------------
 export function include(item: any, targetArr: FrArray<any>): FrBoolean {
     // 'a' in ['a','b'].toSet() === true

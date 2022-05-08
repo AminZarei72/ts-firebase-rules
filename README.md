@@ -121,6 +121,28 @@ function titleIsValid(title) {
 <b>check [react-native-todoList-boilerplate](https://github.com/aminZarei72/react-native-todolist-boilerplate) for a complete example.</b>
 
 ----------------
+## adding-native-modules(optional)
+
+ for adding native modules you can simply modify ```native/functions/nativeFunctions.rules``` then add a decleration type for it.
+ for example:
+ ```js
+ //your_project/tsfr/native/functions/nativeFunctions.rules
+ function docExists2(id, table) {
+    return ( 
+        exists(/databases/$(database)/documents/$(table)/$(id)) 
+    )
+}
+ ```
+ ```ts
+  //your_project/tsfr/additionalFns.d.ts
+import { FrStringAsParam} from 'ts-firebase-rules'
+  
+  export const docExists2: <tables>(id: FrStringAsParam, table: tables) => FrBoolean
+ ```
+and nowyou can use docExists2 function in your tsfr project.
+
+
+----------------
 ## Notes
 
 ⚠️ `*Note:this project is still in its first days ,personally i used this for some of my projects(on production) and so far there have been no problem but we use multiple compiler and transitions so unexpected bugs might happen ,so (for now) you should check the final file and do the testing*`
@@ -140,7 +162,7 @@ so make sure you have read their documentions.
     - aminzarei.work@gmail.com
 
 ## License
-[MIT](https://github.com/aminZarei72)
+[MIT](https://github.com/aminZarei72/ts-firebase-rules/LICENSE)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->

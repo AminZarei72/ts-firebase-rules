@@ -14,6 +14,8 @@ export const resource: FrResource
 export const isBool: (field: FrBooleanAsParam) => FrBoolean
 export const isInt: (field: FrNumberAsParam) => FrBoolean
 export const isString: (field: FrStringAsParam) => FrBoolean
+export const isFloat: (field: FrNumberAsParam) => FrBoolean
+export const isNumber: (field: FrBooleanAsParam) => FrBoolean
 /* ---------------------------------------- */
 /* akjsdkjqnw:  */
 export const docExists: <tables>(id: FrStringAsParam, table: tables) => FrBoolean

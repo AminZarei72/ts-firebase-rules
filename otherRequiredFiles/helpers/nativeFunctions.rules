@@ -23,6 +23,14 @@ function getDataAfter_(tbl, id) {
     )
 } 
 
+function isNumber(field) {
+    return isInt(field) || isFloat(field)
+}
+
+function isFloat(field) {
+    return field is float
+}
+
 function isInt(field) {
     return field is int
 }
