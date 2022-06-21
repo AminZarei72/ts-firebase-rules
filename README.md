@@ -1,5 +1,31 @@
 
+[![Build Status][build-badge]][build]
+[![downloads][downloads]][downloads]
+[![MIT License][license-badge]][license-url]
+[![NPM][npm]][npm-url]
+<!-- [![NPM][npm-url]][npm] -->
+<!-- [![Vulnerabilities][snyk]][snyk]
+ -->
  
+
+[build]: https://github.com/AminZarei72/ts-firebase-rules/releases/tag/0.1.12
+[build-badge]: https://img.shields.io/github/checks-status/aminzarei72/ts-firebase-rules/master
+[downloads]: https://img.shields.io/npm/dt/ts-firebase-rules
+[package]: https://www.npmjs.com/package/ts-firebase-rules
+[license]: http://img.shields.io/:license-mit-blue.svg?style=flat-square
+[license-url]: https://opensource.org/licenses/MIT
+[NPM]: https://img.shields.io/npm/v/ts-firebase-rules?color=g
+
+[npm-url]: https://www.npmjs.com/package/ts-firebase-rules
+<!-- [snyk-img]:https://snyk.io/test/npm/ts-firebase-rules/badge.svg?style=flat-square
+[snyk-url]:https://img.shields.io/snyk/vulnerabilities/npm/ts-firebase-rules -->
+
+[license-badge]: https://img.shields.io/github/license/aminzarei72/ts-firebase-rules
+[license]: https://opensource.org/licenses/MIT
+
+
+
+
 ✨✨TSFR✨✨
  
 TSFR is the lost piece of firebase ".rules" files .   
@@ -145,11 +171,19 @@ and nowyou can use docExists2 function in your tsfr project.
 ----------------
 ## Notes
 
-⚠️ `*Note:this project is still in its first days ,personally i used this for some of my projects(on production) and so far there have been no problem but we use multiple compiler and transitions so unexpected bugs might happen ,so (for now) you should check the final file and do the testing*`
+⚠️ `*Note:this project is still in its first days ,personally i used this for some of my projects on production.
+see [Used-In-Projects](#Used-In-Projects)
+
+and so far there have been no problem but we use multiple compiler and transitions so unexpected bugs might happen ,so (for now) you should check the final file and do the testing*`
 
 Note: we still going to have Firebase rules language limitations like lack of Loops and etc
 so make sure you have read their documentions.
 
+##Used-In-Projects
+ - SmartNet
+    - a multilevel marketing platform with a lot of  recursive functions for user managment But with zero "firebase function" usage.
+    - [web-app](https://customermanager-1.web.app)
+    - [android-app](https://apkpure.com/p/com.aminzarei72.smartnet)
 
 
 ----------------
@@ -160,6 +194,7 @@ so make sure you have read their documentions.
 
 - [amin zarei](https://github.com/aminZarei72)
     - aminzarei.work@gmail.com
+    - socialMedai: @AminZarei72_w
 
 ## License
 [MIT](https://github.com/aminZarei72/ts-firebase-rules/LICENSE)
