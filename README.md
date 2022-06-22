@@ -38,6 +38,7 @@ with TSFR you can use power of typescript to overcome firebase rules-engine limi
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [basic example](#basic-example)
+- [adding-native-modules(optional)](#adding-native-modulesoptional)
 - [Notes](#notes)
 - [Author](#author)
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
